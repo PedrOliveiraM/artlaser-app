@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles/output.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css"
+      rel="stylesheet"
+    />
+    <title>Painel Administrativo</title>
+  </head>
+  <body>
+    <header
+      class="bg-gradient-to-r from-cyan-800 via-cyan-700 to-cyan-600 text-white p-4 flex items-center justify-between shadow-md"
+    >
+      <h1 class="text-2xl font-bold">ArtLaser</h1>
+      <nav>
+        <ul class="flex space-x-4">
+          <li>
+            <a href="#" class="hover:text-yellow-300 focus:text-yellow-400"
+              >Home</a
+            >
+          </li>
+          <li>
+            <a href="#" class="hover:text-yellow-300 focus:text-yellow-400"
+              >Produtos</a
+            >
+          </li>
+          <li>
+            <a href="#" class="hover:text-yellow-300 focus:text-yellow-400"
+              >Sair</a
+            >
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <section class="container mx-auto p-4">
+      <h2 class="text-2xl font-bold">Painel Administrativo</h2>
+      <p class="text-gray-600">Bem-vindo ao painel administrativo</p>
+    </section>
+
+    <nav class="bg-gray-50 text-right px-5">
+      <button
+        class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded shadow-md focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75 transition duration-150"
+        id="add-product-btn"
+      >
+        <i class="fa-solid fa-plus"></i> Adicionar
+      </button>
+      <button
+        class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded shadow-md focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-opacity-75 transition duration-150"
+        id="alt-product-btn"
+      >
+        <i class="fa-solid fa-pen-to-square"></i>Alterar
+      </button>
+      <button
+        class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded shadow-md focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75 transition duration-150"
+        id="del-product-btn"
+      >
+        <i class="fa-solid fa-trash"></i> Remover
+      </button>
+    </nav>
+
+    <main
+      id="main"
+      class="bg-gray-100 items-center justify-center min-h-screen hidden"
+    >
+      <div class="bg-white p-8 rounded shadow-md w-full max-w-lg">
+        <h2 id="title" class="text-2xl font-bold mb-6">Adicionar Produto</h2>
+        <form id="product-form">
+          <!-- Área para visualização da imagem e o botão de recorte -->
+          <div id="image-preview-container" class="hidden mb-4">
+            <img id="image-preview" class="max-w-full mb-4" />
+            <button
+              id="crop-btn"
+              type="button"
+              class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mt-4"
+            >
+              Recortar Imagem
+            </button>
+          </div>
+          <div class="mb-4">
+            <label
+              class="block text-gray-700 text-sm font-bold mb-2"
+              for="image"
+              >Imagem do Produto</label
+            >
+            <input
+              class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+              type="file"
+              id="image"
+              name="image"
+              accept="image/*"
+            />
+          </div>
+          <div class="mb-4">
+            <label
+              class="block text-gray-700 text-sm font-bold mb-2"
+              for="title"
+              >Nome do produto</label
+            >
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              type="text"
+              id="nameProduct"
+              name="title"
+              placeholder="Título do Produto"
+            />
+          </div>
+          <div class="mb-4">
+            <label
+              class="block text-gray-700 text-sm font-bold mb-2"
+              for="description"
+              >Descrição</label
+            >
+            <textarea
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="description"
+              name="description"
+              rows="3"
+              placeholder="Descrição do Produto"
+            ></textarea>
+          </div>
+          <div class="mb-4">
+            <label
+              class="block text-gray-700 text-sm font-bold mb-2"
+              for="title"
+              >Quantidade mínima para atacado</label
+            >
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              type="text"
+              id="qtdmin"
+              name="qtdmin"
+              placeholder="Mínimo de peças para atacado"
+            />
+          </div>
+          <div class="mb-4">
+            <label
+              class="block text-gray-700 text-sm font-bold mb-2"
+              for="title"
+              >Categoria</label
+            >
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              type="text"
+              id="category"
+              name="categoria"
+              placeholder="Categoria do produto"
+            />
+          </div>
+          <div class="mb-4">
+            <label
+              class="block text-gray-700 text-sm font-bold mb-2"
+              for="retail-price"
+              >Preço de Varejo</label
+            >
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              type="number"
+              step="0.01"
+              id="retail-price"
+              name="retail-price"
+              placeholder="Preço de Varejo"
+            />
+          </div>
+          <div class="mb-6">
+            <label
+              class="block text-gray-700 text-sm font-bold mb-2"
+              for="wholesale-price"
+              >Preço de Atacado</label
+            >
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              type="number"
+              step="0.01"
+              id="wholesale-price"
+              name="wholesale-price"
+              placeholder="Preço de Atacado"
+            />
+          </div>
+          <input type="hidden" id="cropped-image" name="cropped-image" />
+          <div class="mb-6">
+            <button
+              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              type="submit"
+            >
+              Adicionar Produto
+            </button>
+          </div>
+        </form>
+      </div>
+    </main>
+
+    <script src="src/script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const input = document.getElementById("image");
+        const imagePreviewContainer = document.getElementById(
+          "image-preview-container"
+        );
+        const imagePreview = document.getElementById("image-preview");
+        const cropBtn = document.getElementById("crop-btn");
+        const croppedImageInput = document.getElementById("cropped-image");
+        let cropper;
+
+        input.addEventListener("change", function () {
+          const file = input.files[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+              imagePreview.src = e.target.result;
+              imagePreviewContainer.classList.remove("hidden");
+              if (cropper) {
+                cropper.destroy();
+              }
+              cropper = new Cropper(imagePreview, {
+                aspectRatio: 4 / 3,
+                viewMode: 1,
+                autoCropArea: 1,
+                responsive: true,
+              });
+            };
+            reader.readAsDataURL(file);
+          }
+        });
+
+        cropBtn.addEventListener("click", function () {
+          if (cropper) {
+            const canvas = cropper.getCroppedCanvas();
+            const croppedImageUrl = canvas.toDataURL("image/jpeg");
+            croppedImageInput.value = croppedImageUrl;
+            imagePreviewContainer.classList.add("hidden"); // Oculta a visualização da imagem
+          }
+        });
+
+        document
+          .getElementById("product-form")
+          .addEventListener("submit", function (event) {
+            event.preventDefault(); // Evita o envio padrão do formulário
+
+            const formData = new FormData(this);
+            // Aqui você pode enviar o formulário via AJAX para o seu servidor
+            fetch("/path-to-your-server-endpoint", {
+              method: "POST",
+              body: formData,
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                console.log("Success:", data);
+                // Manipule a resposta do servidor conforme necessário
+              })
+              .catch((error) => {
+                console.error("Error:", error);
+              });
+          });
+      });
+    </script>
+  </body>
+</html>
