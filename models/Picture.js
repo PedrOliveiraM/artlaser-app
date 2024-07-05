@@ -9,6 +9,8 @@ const PictureSchema = new Schema({
   description: { type: String, required: true },
   retail: { type: Number, required: true },
   wholesale: { type: Number, required: true },
+  qtdMin: { type: Number, required: true },
+  category: { type: String, required: true },
 });
 
 module.exports = mongoose.model("Picture", PictureSchema);

@@ -4,7 +4,15 @@ const fs = require("fs");
 
 exports.create = async (req, res) => {
   try {
-    const { imageName, title, description,qtdmin, category, retail, wholesale } = req.body;
+    const {
+      imageName,
+      title,
+      description,
+      qtdMin,
+      category,
+      retail,
+      wholesale,
+    } = req.body;
 
     const file = req.file;
 
@@ -13,7 +21,7 @@ exports.create = async (req, res) => {
       src: file.path,
       title,
       description,
-      qtdmin,
+      qtdMin,
       category,
       retail,
       wholesale,
@@ -30,10 +38,8 @@ exports.create = async (req, res) => {
 // buscar todas
 exports.findAll = async (req, res) => {
   try {
-    
     const pictures = await Picture.find();
     res.json(pictures);
-
   } catch (error) {
     res.status(500).send({ message: "Error get pictures" });
   }
@@ -48,13 +54,15 @@ exports.remove = async (req, res) => {
       return res.status(404).send({ message: "Picture not found" });
     }
 
-    fs.unlinkSync(picture.src);
+    // Excluir a imagem do servidor
+    //fs.unlinkSync(picture.src);
 
-    await picture.remove();
+    // Remover do banco de dados
+    await Picture.findByIdAndDelete(req.params.id);
 
     res.json({ msg: "Picture removed successfully" });
-
   } catch (error) {
-    res.status(500).send({ message: "Error remove picture" });
+    console.error(error);
+    res.status(500).send({ message: "Error removing picture" });
   }
 };
