@@ -26,7 +26,9 @@
       <nav>
         <ul class="flex space-x-4">
           <li>
-            <a href="#" class="hover:text-yellow-300 focus:text-yellow-400"
+            <a
+              href="index.html"
+              class="hover:text-yellow-300 focus:text-yellow-400"
               >Home</a
             >
           </li>
@@ -49,7 +51,7 @@
       <p class="text-gray-600">Bem-vindo ao painel administrativo</p>
     </section>
 
-    <nav class="bg-gray-50 text-right px-5">
+    <nav class="bg-gray-50 text-right px-5 flex justify-between md:justify-start md:gap-5 md:ml-44">
       <button
         class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded shadow-md focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75 transition duration-150"
         id="add-product-btn"
@@ -70,201 +72,63 @@
       </button>
     </nav>
 
-    <main
-      id="main"
-      class="bg-gray-100 items-center justify-center min-h-screen hidden"
-    >
-      <div class="bg-white p-8 rounded shadow-md w-full max-w-lg">
-        <h2 id="title" class="text-2xl font-bold mb-6">Adicionar Produto</h2>
-        <form id="product-form">
-          <!-- Área para visualização da imagem e o botão de recorte -->
-          <div id="image-preview-container" class="hidden mb-4">
-            <img id="image-preview" class="max-w-full mb-4" />
-            <button
-              id="crop-btn"
-              type="button"
-              class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mt-4"
-            >
-              Recortar Imagem
-            </button>
+    <div class="max-w-md mx-auto bg-white p-6 rounded-md shadow-md">
+      <h2 class="text-2xl font-bold mb-6">Adicionar Nova Imagem</h2>
+      <form id="pictureForm" enctype="multipart/form-data">
+        <div class="mb-4">
+          <label for="image" class="block text-sm font-medium text-gray-700">Imagem do Produto:</label>
+          <input type="file" id="image" name="image" accept="image/*" required 
+                 class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+        </div>
+        <div id="imagePreviewContainer" class="mb-4 hidden">
+          <label class="block text-sm font-medium text-gray-700 mb-2">Preview da Imagem:</label>
+          <div class="relative">
+            <img id="imagePreview" class="max-w-full mb-2 rounded-md shadow-md" />
+            <div id="selectionBox" class="absolute border-2 border-blue-500" style="width: 160px; height: 190px; top: 50px; left: 50px;"></div>
           </div>
-          <div class="mb-4">
-            <label
-              class="block text-gray-700 text-sm font-bold mb-2"
-              for="image"
-              >Imagem do Produto</label
-            >
-            <input
-              class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
-              type="file"
-              id="image"
-              name="image"
-              accept="image/*"
-            />
-          </div>
-          <div class="mb-4">
-            <label
-              class="block text-gray-700 text-sm font-bold mb-2"
-              for="title"
-              >Nome do produto</label
-            >
-            <input
-              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              type="text"
-              id="nameProduct"
-              name="title"
-              placeholder="Título do Produto"
-            />
-          </div>
-          <div class="mb-4">
-            <label
-              class="block text-gray-700 text-sm font-bold mb-2"
-              for="description"
-              >Descrição</label
-            >
-            <textarea
-              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="description"
-              name="description"
-              rows="3"
-              placeholder="Descrição do Produto"
-            ></textarea>
-          </div>
-          <div class="mb-4">
-            <label
-              class="block text-gray-700 text-sm font-bold mb-2"
-              for="title"
-              >Quantidade mínima para atacado</label
-            >
-            <input
-              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              type="text"
-              id="qtdmin"
-              name="qtdmin"
-              placeholder="Mínimo de peças para atacado"
-            />
-          </div>
-          <div class="mb-4">
-            <label
-              class="block text-gray-700 text-sm font-bold mb-2"
-              for="title"
-              >Categoria</label
-            >
-            <input
-              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              type="text"
-              id="category"
-              name="categoria"
-              placeholder="Categoria do produto"
-            />
-          </div>
-          <div class="mb-4">
-            <label
-              class="block text-gray-700 text-sm font-bold mb-2"
-              for="retail-price"
-              >Preço de Varejo</label
-            >
-            <input
-              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              type="number"
-              step="0.01"
-              id="retail-price"
-              name="retail-price"
-              placeholder="Preço de Varejo"
-            />
-          </div>
-          <div class="mb-6">
-            <label
-              class="block text-gray-700 text-sm font-bold mb-2"
-              for="wholesale-price"
-              >Preço de Atacado</label
-            >
-            <input
-              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              type="number"
-              step="0.01"
-              id="wholesale-price"
-              name="wholesale-price"
-              placeholder="Preço de Atacado"
-            />
-          </div>
-          <input type="hidden" id="cropped-image" name="cropped-image" />
-          <div class="mb-6">
-            <button
-              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              type="submit"
-            >
-              Adicionar Produto
-            </button>
-          </div>
-        </form>
-      </div>
-    </main>
+          <button id="cropImageBtn" type="button" class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            Cortar Imagem
+          </button>
+        </div>
+        <div class="mb-4">
+          <label for="title" class="block text-sm font-medium text-gray-700">Título:</label>
+          <input type="text" id="title" name="title" required
+                 class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+        </div>
+        <div class="mb-4">
+          <label for="description" class="block text-sm font-medium text-gray-700">Descrição:</label>
+          <textarea id="description" name="description" rows="4" required
+                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
+        </div>
+        <div class="mb-4">
+          <label for="qtdMin" class="block text-sm font-medium text-gray-700">Quantidade Mínima:</label>
+          <input type="number" id="qtdMin" name="qtdMin" required
+                 class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+        </div>
+        <div class="mb-4">
+          <label for="category" class="block text-sm font-medium text-gray-700">Categoria:</label>
+          <input type="text" id="category" name="category" required
+                 class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+        </div>
+        <div class="mb-4">
+          <label for="retail" class="block text-sm font-medium text-gray-700">Preço de Varejo:</label>
+          <input type="number" id="retail" name="retail" step="0.01" required
+                 class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+        </div>
+        <div class="mb-4">
+          <label for="wholesale" class="block text-sm font-medium text-gray-700">Preço de Atacado:</label>
+          <input type="number" id="wholesale" name="wholesale" step="0.01" required
+                 class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+        </div>
+        <div>
+          <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            Enviar
+          </button>
+        </div>
+      </form>
+    </div>
 
     <script src="src/script.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const input = document.getElementById("image");
-        const imagePreviewContainer = document.getElementById(
-          "image-preview-container"
-        );
-        const imagePreview = document.getElementById("image-preview");
-        const cropBtn = document.getElementById("crop-btn");
-        const croppedImageInput = document.getElementById("cropped-image");
-        let cropper;
-
-        input.addEventListener("change", function () {
-          const file = input.files[0];
-          if (file) {
-            const reader = new FileReader();
-            reader.onload = function (e) {
-              imagePreview.src = e.target.result;
-              imagePreviewContainer.classList.remove("hidden");
-              if (cropper) {
-                cropper.destroy();
-              }
-              cropper = new Cropper(imagePreview, {
-                aspectRatio: 4 / 3,
-                viewMode: 1,
-                autoCropArea: 1,
-                responsive: true,
-              });
-            };
-            reader.readAsDataURL(file);
-          }
-        });
-
-        cropBtn.addEventListener("click", function () {
-          if (cropper) {
-            const canvas = cropper.getCroppedCanvas();
-            const croppedImageUrl = canvas.toDataURL("image/jpeg");
-            croppedImageInput.value = croppedImageUrl;
-            imagePreviewContainer.classList.add("hidden"); // Oculta a visualização da imagem
-          }
-        });
-
-        document
-          .getElementById("product-form")
-          .addEventListener("submit", function (event) {
-            event.preventDefault(); // Evita o envio padrão do formulário
-
-            const formData = new FormData(this);
-            // Aqui você pode enviar o formulário via AJAX para o seu servidor
-            fetch("/path-to-your-server-endpoint", {
-              method: "POST",
-              body: formData,
-            })
-              .then((response) => response.json())
-              .then((data) => {
-                console.log("Success:", data);
-                // Manipule a resposta do servidor conforme necessário
-              })
-              .catch((error) => {
-                console.error("Error:", error);
-              });
-          });
-      });
-    </script>
   </body>
 </html>
