@@ -55,7 +55,7 @@ exports.remove = async (req, res) => {
     }
 
     // Excluir a imagem do servidor
-    //fs.unlinkSync(picture.src);
+    fs.unlinkSync(picture.src);
 
     // Remover do banco de dados
     await Picture.findByIdAndDelete(req.params.id);

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="./styles/output.css" rel="stylesheet" />
     <link rel="stylesheet" href="./styles/output.css" />
-    <meta name="theme-color" content="white">
+    <meta name="theme-color" content="white" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -28,6 +28,32 @@
         gap: 20px;
         justify-content: space-around; /* Alinhamento dos itens na linha */
         align-items: stretch; /* Todos os itens terão a mesma altura */
+      }
+      .carousel-container {
+        position: relative;
+        max-width: 800px; /* Ajuste o tamanho máximo conforme necessário */
+        margin: 0 auto;
+        overflow: hidden;
+      }
+
+      .carousel {
+        display: flex;
+        transition: transform 0.3s ease;
+      }
+
+      .carousel-item {
+        min-width: 100%; /* Garante que cada item ocupe toda a largura do container */
+        flex: 0 0 auto; /* Garante que os itens não sejam redimensionados */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .carousel-item img {
+        max-width: 100%; /* Garante que a imagem não ultrapasse a largura do item */
+        max-height: 100%; /* Garante que a imagem não ultrapasse a altura do item */
+        object-fit: contain; /* Mantém a proporção da imagem sem distorcer */
+        border-radius: 8px; /* Borda arredondada, ajuste conforme necessário */
       }
     </style>
     <title>Catálogo</title>
@@ -53,17 +79,10 @@
       </button>
     </header>
 
-    <div
-      class="mt-3 bar-search w-11/12 mx-auto flex items-center bg-white rounded-lg border border-gray-300 px-4"
-    >
-      <input
-        class="bar-search-input flex-1 py-2 px-2 outline-none"
-        type="text"
-        placeholder="Procure por produtos"
-      />
-      <button class="flex items-center justify-center rounded-lg">
-        <img class="w-7" src="assets/ic_search.svg" alt="botão de pesquisa" />
-      </button>
+    <div class="carousel-container">
+      <div id="banners" class="carousel relative">
+        <!-- Itens do carrossel serão adicionados dinamicamente aqui -->
+      </div>
     </div>
 
     <main

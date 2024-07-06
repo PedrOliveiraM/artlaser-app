@@ -65,35 +65,62 @@ function showCatalog(products) {
   }
 }
 
-/*
-async function fetchProducts() {
-  try {
-    const response = await fetch("http://localhost:4000/pictures/");
-
-    console.log(response);
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
-
-    const products = await response.json(); // Espera a conversão da resposta para JSON
-    showCatalog(products);
-  } catch (error) {
-    console.error("There has been a problem with your fetch operation:", error);
-  }
-}
-*/
-//fetchProducts();
-
 fetch("http://localhost:4000/pictures/")
-  .then((response) => response.json()) // Converte a resposta para JSON
+  .then((response) => response.json())
   .then((data) => {
-    // Aqui você manipula os dados recebidos (variável 'data')
-    console.log(data); // Exemplo de como manipular os dados recebidos
-    // Chame uma função para mostrar os itens na tela
-    //mostrarItensNaTela(data);
+    console.log(data);
     showCatalog(data);
   })
   .catch((error) => {
     console.error("Erro ao buscar dados:", error);
-    // Trate o erro de alguma forma adequada
   });
+
+//TODO: Implementar banners
+// Função para buscar os dados do banner
+
+function fetchBannerData() {
+  fetch("http://localhost:4000/banner/")
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Fetch banner", data);
+      createCarousel(data);
+    })
+    .catch((error) => {
+      console.error("Erro ao buscar dados:", error);
+    });
+}
+function createCarousel(banners) {
+  const bannersContainer = document.getElementById("banners");
+
+  banners.forEach((banner) => {
+    const item = document.createElement("div");
+    item.classList.add("carousel-item");
+    item.innerHTML = `
+      <img class="w-11/12 h-32 rounded-xl" src="${banner.src}" alt="${banner.imageName}" />
+    `;
+    bannersContainer.appendChild(item);
+  });
+
+  const carouselItems = document.querySelectorAll(".carousel-item");
+  const totalItems = carouselItems.length;
+  const itemWidth = carouselItems[0].clientWidth;
+
+  let currentIndex = 0;
+
+  function showSlide(index) {
+    const offset = -index * itemWidth;
+    bannersContainer.style.transform = `translateX(${offset}px)`;
+    currentIndex = index;
+  }
+
+  // Inicia o carrossel
+  showSlide(currentIndex);
+
+  // Intervalo para avançar automaticamente
+  setInterval(() => {
+    currentIndex = (currentIndex + 1) % totalItems;
+    showSlide(currentIndex);
+  }, 3000); // Intervalo de 3 segundos para trocar os slides
+}
+
+fetchBannerData();
