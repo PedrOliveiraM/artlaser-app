@@ -1,3 +1,4 @@
+//READY: MOSTRAR TELA DE ADIÇÃO DE PRODUTO E ALTERAÇÃO
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("pictureForm");
   const imageInput = document.getElementById("image");
@@ -116,6 +117,19 @@ document.addEventListener("DOMContentLoaded", () => {
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
+    const productId = document.getElementById("productId").value;
+    console.log("Product ID (getElementById):", productId);
+
+    if (
+      productId !== null &&
+      productId !== undefined &&
+      productId.trim() !== ""
+    ) {
+      deleteProduct(productId);
+    } else {
+      console.error("Product ID is invalid.");
+    }
+
     // Verificar se todos os campos do formulário estão preenchidos
     if (!form.checkValidity()) {
       alert("Por favor, preencha todos os campos do formulário.");
@@ -168,14 +182,15 @@ document.addEventListener("DOMContentLoaded", () => {
 const btnOptionsProducts = document.getElementById("btnOptionsProducts");
 const menuOptionsProducts = document.getElementById("menuOptionsProducts");
 
+// READY: MOSTRAR BOTOES DE OPCOES
 const btnOptionsBanner = document.getElementById("btnOptionsBanners");
 const menuOptionsBanner = document.getElementById("menuOptionsBanners");
-
+// READY: MENU PRODUCTS
 btnOptionsProducts.addEventListener("click", () => {
   menuOptionsProducts.classList.toggle("hidden");
   menuOptionsProducts.classList.toggle("flex");
 });
-
+// READY: MENU BANNER
 btnOptionsBanner.addEventListener("click", () => {
   menuOptionsBanner.classList.toggle("hidden");
   menuOptionsBanner.classList.toggle("flex");
@@ -232,9 +247,8 @@ document
       });
   });
 
-//TODO: IMPLEMENTAR ALTERAÇÃO
+//READY: MOSTRAR TELA DE ALTERAÇÃO DE PRODUTO
 const altProductBtn = document.getElementById("altProductBtn");
-
 altProductBtn.addEventListener("click", () => {
   const telaDeAlteracao = document.getElementById("telaDeAlteracao");
   telaDeAlteracao.classList.toggle("hidden");
@@ -259,7 +273,7 @@ altProductBtn.addEventListener("click", () => {
             <img id="img" class="w-40 h-48 rounded-xl" src="${product.src}" alt="imagem" />
             <h2 id="nameProduct" class="nameProduct text-center font-semibold">${product.title}</h2>
             <div class="container-buy mt-1 flex justify-center items-center">
-              <button class="text-white font-bold text-sm bg-yellow-600 w-32 h-8 rounded gap-2 flex justify-center items-center" id="btnAddCart" data-id="${product._id}" >
+              <button class="text-white font-bold text-sm bg-yellow-600 w-32 h-8 rounded gap-2 flex justify-center items-center" id="btnAltItem" data-id="${product._id}" >
                 <i class="fa-solid fa-pen-to-square"></i> Alterar
               </button>
             </div>
@@ -284,18 +298,21 @@ altProductBtn.addEventListener("click", () => {
         item.style.height = `${maxHeight}px`;
       });
 
-      const buttons = document.querySelectorAll("#btnAddCart");
+      const buttons = document.querySelectorAll("#btnAltItem");
 
       // Adiciona um evento de clique a cada botão
       buttons.forEach((button) => {
         button.addEventListener("click", (event) => {
-          // Captura o valor do data-id
           const dataId = event.target.getAttribute("data-id");
-          console.log("ID do produto:", dataId);
-          // Aqui você pode adicionar a lógica que deseja realizar com o data-id
 
-          const modal = document.getElementById("modal");
-          modal.classList.toggle("hidden");
+          // aparecer o form
+          const formArea = document.getElementById("formAddProduct");
+          const form = document.getElementById("pictureForm");
+          const telaDeAlteracao = document.getElementById("telaDeAlteracao");
+          const titleTela = document.getElementById("titleTela");
+          titleTela.innerHTML = "Tela de Alteração de Produto";
+          telaDeAlteracao.classList.toggle("hidden");
+          formArea.classList.remove("hidden");
 
           fetch(`http://localhost:4000/pictures/${dataId}`)
             .then((response) => response.json())
@@ -307,11 +324,14 @@ altProductBtn.addEventListener("click", () => {
               console.error("Erro ao buscar dados:", error);
             });
 
-          function preencherForm(product) {
-            // Seleciona o formulário
-            const form = document.getElementById("formAltProduct");
+          const btnCancel = document.getElementById("btnCancel");
+          btnCancel.addEventListener("click", () => {
+            formArea.classList.toggle("hidden");
+            telaDeAlteracao.classList.toggle("hidden");
+          });
 
-            // Preenche os campos do formulário com os dados do produto
+          function preencherForm(product) {
+            console.log("preenchendo form", product);
             form.querySelector("#productId").value = product._id;
             form.querySelector("#title").value = product.title;
             form.querySelector("#description").value = product.description;
@@ -327,82 +347,24 @@ altProductBtn.addEventListener("click", () => {
     }
   }
 });
+// READY: DELETAR PRODUTO
+function deleteProduct(productId) {
+  const url = `http://localhost:4000/pictures/${productId}`; // URL para a requisição DELETE
 
-const form = document.getElementById("formAltProduct");
-
-form.addEventListener("submit", function (event) {
-  event.preventDefault(); // Previne o comportamento padrão de envio do formulário
-
-  const id = form.querySelector("#productId").value;
-  console.log("Código do submit id:", id);
-
-  // Função para excluir o produto do servidor
-  function deleteProduct(productId) {
-    const url = `http://localhost:4000/pictures/${productId}`; // URL para a requisição DELETE
-
-    fetch(url, {
-      method: "DELETE", // Método da requisição
+  fetch(url, {
+    method: "DELETE", // Método da requisição
+  })
+    .then((response) => {
+      if (response.ok) {
+        return response.json(); // Se a resposta for bem-sucedida, converte para JSON
+      }
+      throw new Error("Erro ao excluir o produto");
     })
-      .then((response) => {
-        if (response.ok) {
-          return response.json(); // Se a resposta for bem-sucedida, converte para JSON
-        }
-        throw new Error("Erro ao excluir o produto");
-      })
-      .then((data) => {
-        console.log("Produto excluído com sucesso:", data);
-        // Atualize a interface conforme necessário
-      })
-      .catch((error) => {
-        console.error("Erro:", error);
-      });
-  }
-
-  // Função para adicionar (ou atualizar) o produto no servidor
-  function addProduct(formData) {
-    const url = `http://localhost:4000/pictures/`; // URL para a requisição POST
-
-    fetch(url, {
-      method: "POST", // Método da requisição
-      body: formData, // Envia o FormData que contém todos os dados do formulário
+    .then((data) => {
+      console.log("Produto excluído com sucesso:", data);
+      // Atualize a interface conforme necessário
     })
-      .then((response) => {
-        if (response.ok) {
-          return response.json(); // Se a resposta for bem-sucedida, converte para JSON
-        }
-        throw new Error("Erro ao adicionar o produto");
-      })
-      .then((data) => {
-        console.log("Produto adicionado com sucesso:", data);
-        // Atualize a interface conforme necessário
-      })
-      .catch((error) => {
-        console.error("Erro:", error);
-      });
-  }
-
-  // Criar um FormData com os dados do formulário
-
-  const formData = new FormData(form);
-
-  // Adicionar a imagem cortada ao FormData
-  const canvas = document.createElement("canvas");
-  const ctx = canvas.getContext("2d");
-  canvas.width = cropWidth;
-  canvas.height = cropHeight;
-  ctx.drawImage(imagePreview, 0, 0, cropWidth, cropHeight);
-  canvas.toBlob(function (blob) {
-    const croppedFile = new File([blob], "cropped-image.jpg", {
-      type: "image/jpeg",
+    .catch((error) => {
+      console.error("Erro:", error);
     });
-    formData.set("image", croppedFile); // Substituir o arquivo original pelo arquivo cortado
-  }, "image/jpeg");
-
-  if (id) {
-    // Se o ID estiver presente, primeiro exclua o produto existente
-    deleteProduct(id);
-  }
-
-  // Em seguida, envie o formulário com o novo produto
-  addProduct(formData);
-});
+}
