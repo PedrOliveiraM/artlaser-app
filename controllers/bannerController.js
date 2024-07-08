@@ -4,10 +4,7 @@ const fs = require("fs");
 
 exports.create = async (req, res) => {
   try {
-    const {
-      imageName,
-    } = req.body;
-
+    const { imageName } = req.body;
     const file = req.file;
 
     const banner = new Banner({
@@ -19,7 +16,8 @@ exports.create = async (req, res) => {
 
     res.json({ banner, msg: "Banner saved successfully" });
   } catch (error) {
-    res.status(500).send({ message: "Error save picture" });
+    console.error("Error save picture:", error);
+    res.status(500).send({ message: "Error saving picture" });
   }
 };
 

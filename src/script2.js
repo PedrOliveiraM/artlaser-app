@@ -36,7 +36,9 @@ function showCatalog(products) {
             <button id="btnAddProduct" class="btn-plus px-3 py-1 text-black font-semibold rounded-lg">+</button>
           </div>
           <div class="container-buy mt-1 flex justify-center items-center">
-            <button class="text-white font-bold text-sm bg-[#28A745] w-32 h-8 rounded gap-2 flex justify-center items-center" id="btnAddCart">
+            <button class="text-white font-bold text-sm bg-[#28A745] w-32 h-8 rounded gap-2 flex justify-center items-center" id="btnAddCart" data-id="${
+              product._id
+            }" >
               <i class="fa-solid fa-cart-plus"></i> Adicionar
             </button>
           </div>

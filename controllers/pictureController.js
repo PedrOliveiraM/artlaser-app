@@ -70,6 +70,15 @@ exports.findAll = async (req, res) => {
   }
 };
 
+exports.findOne = async (req, res) => {
+  try {
+    const picture = await Picture.findById(req.params.id);
+    res.json(picture);
+  } catch (error) {
+    res.status(500).send({ message: "Error get pictures" });
+  }
+};
+
 //remover
 exports.remove = async (req, res) => {
   try {

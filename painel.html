@@ -51,81 +51,403 @@
       <p class="text-gray-600">Bem-vindo ao painel administrativo</p>
     </section>
 
-    <nav class="bg-gray-50 text-right px-5 flex justify-between md:justify-start md:gap-5 md:ml-44">
-      <button
-        class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded shadow-md focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75 transition duration-150"
-        id="add-product-btn"
-      >
-        <i class="fa-solid fa-plus"></i> Adicionar
-      </button>
-      <button
-        class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded shadow-md focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-opacity-75 transition duration-150"
-        id="alt-product-btn"
-      >
-        <i class="fa-solid fa-pen-to-square"></i>Alterar
-      </button>
-      <button
-        class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded shadow-md focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75 transition duration-150"
-        id="del-product-btn"
-      >
-        <i class="fa-solid fa-trash"></i> Remover
-      </button>
-    </nav>
+    <section class="flex flex-col gap-2 md:ml-10 ml-2">
+      <div class="products flex items-center ml-2 md:ml-44">
+        <button id="btnOptionsProducts" class="font-bold">
+          PRODUTOS <i class="fa-solid fa-chevron-right"></i>
+        </button>
+        <nav
+          id="menuOptionsProducts"
+          class="bg-gray-50 text-right flex-col gap-2 hidden justify-between items-center ml-2"
+        >
+          <button
+            class="w-28 flex items-center justify-center px-3 py-2 gap-1 bg-green-500 hover:bg-green-600 text-white font-bold rounded shadow-md focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75 transition duration-150"
+            id="addProductBtn"
+          >
+            <i class="fa-solid fa-plus"></i> Adicionar
+          </button>
+          <button
+            class="w-28 flex items-center justify-center px-3 py-2 gap-1 bg-yellow-500 hover:bg-yellow-600 text-white font-bold rounded shadow-md focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-opacity-75 transition duration-150"
+            id="altProductBtn"
+          >
+            <i class="fa-solid fa-pen-to-square"></i>Alterar
+          </button>
+          <button
+            class="w-28 flex items-center justify-center px-3 py-2 gap-1 bg-red-500 hover:bg-red-600 text-white font-bold rounded shadow-md focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75 transition duration-150"
+            id="delProductBtn"
+          >
+            <i class="fa-solid fa-trash"></i> Remover
+          </button>
+        </nav>
+      </div>
 
-    <div class="max-w-md mx-auto bg-white p-6 rounded-md shadow-md">
-      <h2 class="text-2xl font-bold mb-6">Adicionar Nova Imagem</h2>
-      <form id="pictureForm" enctype="multipart/form-data">
-        <div class="mb-4">
-          <label for="image" class="block text-sm font-medium text-gray-700">Imagem do Produto:</label>
-          <input type="file" id="image" name="image" accept="image/*" required 
-                 class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-        </div>
-        <div id="imagePreviewContainer" class="mb-4 hidden">
-          <label class="block text-sm font-medium text-gray-700 mb-2">Preview da Imagem:</label>
-          <div class="relative">
-            <img id="imagePreview" class="max-w-full mb-2 rounded-md shadow-md" />
-            <div id="selectionBox" class="absolute border-2 border-blue-500" style="width: 160px; height: 190px; top: 50px; left: 50px;"></div>
+      <div class="banners flex items-center ml-2 md:ml-44">
+        <button id="btnOptionsBanners" class="font-bold">
+          BANNERS <i class="fa-solid fa-chevron-right"></i>
+        </button>
+        <nav
+          id="menuOptionsBanners"
+          class="bg-gray-50 text-right flex-col gap-2 justify-between items-center ml-2 hidden"
+        >
+          <button
+            class="w-28 flex items-center justify-center px-3 py-2 gap-1 bg-green-500 hover:bg-green-600 text-white font-bold rounded shadow-md focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75 transition duration-150"
+            id="addBannerBtn"
+          >
+            <i class="fa-solid fa-plus"></i> Adicionar
+          </button>
+          <button
+            class="w-28 flex items-center justify-center px-3 py-2 gap-1 bg-yellow-500 hover:bg-yellow-600 text-white font-bold rounded shadow-md focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-opacity-75 transition duration-150"
+            id="altBannerBtn"
+          >
+            <i class="fa-solid fa-pen-to-square"></i>Alterar
+          </button>
+          <button
+            class="w-28 flex items-center justify-center px-3 py-2 gap-1 bg-red-500 hover:bg-red-600 text-white font-bold rounded shadow-md focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75 transition duration-150"
+            id="delBannerBtn"
+          >
+            <i class="fa-solid fa-trash"></i> Remover
+          </button>
+        </nav>
+      </div>
+    </section>
+
+    <main>
+      <div
+        id="formAddProduct"
+        class="hidden max-w-md mx-auto bg-white p-6 rounded-md shadow-md"
+      >
+        <h2 class="text-2xl font-bold mb-6">Adicionar Nova Imagem</h2>
+        <form id="pictureForm" enctype="multipart/form-data">
+          <div class="mb-4">
+            <label for="image" class="block text-sm font-medium text-gray-700"
+              >Imagem do Produto:</label
+            >
+            <input
+              type="file"
+              id="image"
+              name="image"
+              accept="image/*"
+              required
+              class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            />
           </div>
-          <button id="cropImageBtn" type="button" class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-            Cortar Imagem
-          </button>
+          <div id="imagePreviewContainer" class="mb-4 hidden">
+            <label class="block text-sm font-medium text-gray-700 mb-2"
+              >Preview da Imagem:</label
+            >
+            <div class="relative">
+              <img
+                id="imagePreview"
+                class="max-w-full mb-2 rounded-md shadow-md"
+              />
+              <div
+                id="selectionBox"
+                class="absolute border-2 border-blue-500"
+                style="width: 160px; height: 190px; top: 50px; left: 50px"
+              ></div>
+            </div>
+            <button
+              id="cropImageBtn"
+              type="button"
+              class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            >
+              Cortar Imagem
+            </button>
+          </div>
+          <div class="mb-4">
+            <label for="title" class="block text-sm font-medium text-gray-700"
+              >Título:</label
+            >
+            <input
+              type="text"
+              id="title"
+              name="title"
+              required
+              class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            />
+          </div>
+          <div class="mb-4">
+            <label
+              for="description"
+              class="block text-sm font-medium text-gray-700"
+              >Descrição:</label
+            >
+            <textarea
+              id="description"
+              name="description"
+              rows="4"
+              maxlength="100"
+              required
+              class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            ></textarea>
+          </div>
+          <div class="mb-4">
+            <label for="qtdMin" class="block text-sm font-medium text-gray-700"
+              >Quantidade Mínima:</label
+            >
+            <input
+              type="number"
+              id="qtdMin"
+              name="qtdMin"
+              required
+              class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            />
+          </div>
+          <div class="mb-4">
+            <label
+              for="category"
+              class="block text-sm font-medium text-gray-700"
+              >Categoria:</label
+            >
+            <input
+              type="text"
+              id="category"
+              name="category"
+              required
+              class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            />
+          </div>
+          <div class="mb-4">
+            <label for="retail" class="block text-sm font-medium text-gray-700"
+              >Preço de Varejo:</label
+            >
+            <input
+              type="number"
+              id="retail"
+              name="retail"
+              step="0.01"
+              required
+              class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            />
+          </div>
+          <div class="mb-4">
+            <label
+              for="wholesale"
+              class="block text-sm font-medium text-gray-700"
+              >Preço de Atacado:</label
+            >
+            <input
+              type="number"
+              id="wholesale"
+              name="wholesale"
+              step="0.01"
+              required
+              class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            />
+          </div>
+          <div>
+            <button
+              type="submit"
+              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            >
+              Enviar
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div
+        id="formAddBanner"
+        class="hidden max-w-lg mx-auto bg-white p-6 rounded shadow-md"
+      >
+        <h2 class="text-2xl font-bold mb-4">Adicionar Banner</h2>
+        <form
+          id="bannerForm"
+          action="/"
+          method="post"
+          enctype="multipart/form-data"
+        >
+          <div class="mb-4">
+            <label for="titulo" class="block text-sm font-medium text-gray-700"
+              >Título:</label
+            >
+            <input
+              type="text"
+              id="titulo"
+              name="imageName"
+              required
+              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            />
+          </div>
+          <div class="mb-4">
+            <label for="imagem" class="block text-sm font-medium text-gray-700"
+              >Imagem:</label
+            >
+            <input
+              type="file"
+              id="imagem"
+              name="image"
+              accept="image/*"
+              required
+              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            />
+          </div>
+          <div class="mb-4">
+            <button
+              type="submit"
+              class="bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600 focus:outline-none focus:bg-indigo-600"
+            >
+              Enviar
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div
+        id="telaDeAlteracao"
+        class="hidden max-w-md mx-auto bg-white p-6 rounded-md shadow-md"
+      >
+        <h2 class="text-2xl font-bold mb-6">Alterar Produto</h2>
+        <div
+          id="gridContainer"
+          class="grid md:grid-cols-4 grid-cols-2 md:gap-1 gap-7 mx-auto max-w-7xl px-2 mb-16"
+        >
+          <!-- Mostrar os produtos -->
         </div>
-        <div class="mb-4">
-          <label for="title" class="block text-sm font-medium text-gray-700">Título:</label>
-          <input type="text" id="title" name="title" required
-                 class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-        </div>
-        <div class="mb-4">
-          <label for="description" class="block text-sm font-medium text-gray-700">Descrição:</label>
-          <textarea id="description" name="description" rows="4" required
-                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
-        </div>
-        <div class="mb-4">
-          <label for="qtdMin" class="block text-sm font-medium text-gray-700">Quantidade Mínima:</label>
-          <input type="number" id="qtdMin" name="qtdMin" required
-                 class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-        </div>
-        <div class="mb-4">
-          <label for="category" class="block text-sm font-medium text-gray-700">Categoria:</label>
-          <input type="text" id="category" name="category" required
-                 class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-        </div>
-        <div class="mb-4">
-          <label for="retail" class="block text-sm font-medium text-gray-700">Preço de Varejo:</label>
-          <input type="number" id="retail" name="retail" step="0.01" required
-                 class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-        </div>
-        <div class="mb-4">
-          <label for="wholesale" class="block text-sm font-medium text-gray-700">Preço de Atacado:</label>
-          <input type="number" id="wholesale" name="wholesale" step="0.01" required
-                 class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-        </div>
-        <div>
-          <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-            Enviar
-          </button>
-        </div>
-      </form>
+      </div>
+    </main>
+
+    <!-- NOTE: MODAL  -->
+    <div
+      id="modal"
+      class="fixed overflow-y-auto hidden inset-0 left-0 top-0 bg-gray-900 bg-opacity-50 items-center justify-center"
+    >
+      <div
+        id="formAltProduct"
+        class="max-w-md mx-auto bg-white p-6 rounded-md shadow-md"
+      >
+        <h2 id="modalTitle" class="text-2xl font-bold mb-6">
+          Alterar Produto
+        </h2>
+        <form id="formAltProduct" enctype="multipart/form-data">
+          <input type="hidden" id="productId" name="productId" />
+          <div class="mb-4">
+            <label for="image" class="block text-sm font-medium text-gray-700"
+              >Imagem do Produto:</label
+            >
+            <input
+              type="file"
+              id="image"
+              name="image"
+              accept="image/*"
+              required
+              class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            />
+          </div>
+          <div id="imagePreviewContainer" class="mb-4 hidden">
+            <label class="block text-sm font-medium text-gray-700 mb-2"
+              >Preview da Imagem:</label
+            >
+            <div class="relative">
+              <img
+                id="imagePreview"
+                class="max-w-full mb-2 rounded-md shadow-md"
+              />
+              <div
+                id="selectionBox"
+                class="absolute border-2 border-blue-500"
+                style="width: 160px; height: 190px; top: 50px; left: 50px"
+              ></div>
+            </div>
+            <button
+              id="cropImageBtn"
+              type="button"
+              class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            >
+              Cortar Imagem
+            </button>
+          </div>
+          <div class="mb-4">
+            <label for="title" class="block text-sm font-medium text-gray-700"
+              >Título:</label
+            >
+            <input
+              type="text"
+              id="title"
+              name="title"
+              required
+              class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            />
+          </div>
+          <div class="mb-4">
+            <label
+              for="description"
+              class="block text-sm font-medium text-gray-700"
+              >Descrição:</label
+            >
+            <textarea
+              id="description"
+              name="description"
+              rows="4"
+              maxlength="100"
+              required
+              class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            ></textarea>
+          </div>
+          <div class="mb-4">
+            <label for="qtdMin" class="block text-sm font-medium text-gray-700"
+              >Quantidade Mínima:</label
+            >
+            <input
+              type="number"
+              id="qtdMin"
+              name="qtdMin"
+              required
+              class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            />
+          </div>
+          <div class="mb-4">
+            <label
+              for="category"
+              class="block text-sm font-medium text-gray-700"
+              >Categoria:</label
+            >
+            <input
+              type="text"
+              id="category"
+              name="category"
+              required
+              class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            />
+          </div>
+          <div class="mb-4">
+            <label for="retail" class="block text-sm font-medium text-gray-700"
+              >Preço de Varejo:</label
+            >
+            <input
+              type="number"
+              id="retail"
+              name="retail"
+              step="0.01"
+              required
+              class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            />
+          </div>
+          <div class="mb-4">
+            <label
+              for="wholesale"
+              class="block text-sm font-medium text-gray-700"
+              >Preço de Atacado:</label
+            >
+            <input
+              type="number"
+              id="wholesale"
+              name="wholesale"
+              step="0.01"
+              required
+              class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            />
+          </div>
+          <div>
+            <button
+              type="submit"
+              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            >
+              Enviar
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
 
     <script src="src/script.js"></script>
