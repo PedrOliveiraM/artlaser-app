@@ -1,6 +1,6 @@
-const Picture = require("../models/Picture");
+const Picture = require('../models/Picture');
 
-const fs = require("fs");
+const fs = require('fs');
 /*
 exports.create = async (req, res) => {
   try {
@@ -53,10 +53,10 @@ exports.create = async (req, res) => {
 
     await picture.save();
 
-    res.json({ picture, msg: "Picture saved successfully" });
+    res.json({ picture, msg: 'Picture saved successfully' });
   } catch (error) {
-    console.error("Error saving picture:", error);
-    res.status(500).send({ message: "Error saving picture" });
+    console.error('Error saving picture:', error);
+    res.status(500).send({ message: 'Error saving picture' });
   }
 };
 
@@ -66,7 +66,7 @@ exports.findAll = async (req, res) => {
     const pictures = await Picture.find();
     res.json(pictures);
   } catch (error) {
-    res.status(500).send({ message: "Error get pictures" });
+    res.status(500).send({ message: 'Error get pictures' });
   }
 };
 
@@ -75,7 +75,20 @@ exports.findOne = async (req, res) => {
     const picture = await Picture.findById(req.params.id);
     res.json(picture);
   } catch (error) {
-    res.status(500).send({ message: "Error get pictures" });
+    res.status(500).send({ message: 'Error get pictures' });
+  }
+};
+
+// buscar por categoria
+exports.findByCategory = async (req, res) => {
+  try {
+    const category = req.params.category;
+    const pictures = await Picture.find({
+      category: new RegExp(`^${category}$`, 'i'),
+    });
+    res.json(pictures);
+  } catch (error) {
+    res.status(500).send({ message: 'Error getting category pictures' });
   }
 };
 
@@ -85,7 +98,7 @@ exports.remove = async (req, res) => {
     const picture = await Picture.findById(req.params.id);
 
     if (!picture) {
-      return res.status(404).send({ message: "Picture not found" });
+      return res.status(404).send({ message: 'Picture not found' });
     }
 
     // Excluir a imagem do servidor
@@ -94,9 +107,9 @@ exports.remove = async (req, res) => {
     // Remover do banco de dados
     await Picture.findByIdAndDelete(req.params.id);
 
-    res.json({ msg: "Picture removed successfully" });
+    res.json({ msg: 'Picture removed successfully' });
   } catch (error) {
     console.error(error);
-    res.status(500).send({ message: "Error removing picture" });
+    res.status(500).send({ message: 'Error removing picture' });
   }
 };

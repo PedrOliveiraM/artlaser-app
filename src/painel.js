@@ -8,8 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const imagePreview = document.getElementById('imagePreview');
   const cropImageBtn = document.getElementById('cropImageBtn');
   const selectionBox = document.getElementById('selectionBox');
-  const cropWidth = 260;
-  const cropHeight = 290;
+  const cropWidth = 280;
+  const cropHeight = 310;
 
   let offsetX = 0;
   let offsetY = 0;

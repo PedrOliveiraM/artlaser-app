@@ -103,21 +103,90 @@
       </div>
     </div>
 
-    <main
-      id="gridContainer"
-      class="grid md:grid-cols-4 grid-cols-2 md:gap-1 gap-7 mx-auto max-w-7xl px-2 mb-16"
-    ></main>
+    <main>
+      <div
+        id="gridContainer"
+        class="grid md:grid-cols-4 grid-cols-2 md:gap-1 gap-7 mx-auto max-w-7xl px-2 mb-16"
+      ></div>
 
-    <div id="sideMenu" class="fixed bg-black/60 h-screen w-screen inset-0">
+      <div
+        id="gridContainerCategory"
+        class="hidden md:grid-cols-4 grid-cols-2 md:gap-1 gap-7 mx-auto max-w-7xl px-2 mb-16"
+      ></div>
+    </main>
+
+    <div
+      id="sideMenu"
+      class="hidden fixed bg-black/60 h-screen w-screen inset-0"
+    >
       <div class="bg-white h-screen w-2/3">
-        <div></div>
-        <h2>Seja Bem vindo a ArtLaser</h2>
-        <button
-          class="flex justify-between items-center gap-2 bg-[#F4F5F7] rounded-md"
-        >
-          <img src="assets/ic_cart.svg" alt="Meu carrinho" />
-          Meu Carrinho
-        </button>
+        <div class="px-3 flex flex-col gap-2 h-at">
+          <h2>Seja Bem-Vindo à ArtLaser</h2>
+          <button
+            id="btnAdmLogin"
+            class="flex gap-2 py-1 items-center bg-[#F4F5F7] px-5 rounded-full"
+          >
+            <img class="w-9 h-9" src="assets/ic_profile.svg" alt="profile" />
+            Administrador
+          </button>
+          <button
+            id="btnToCart "
+            class="flex gap-2 py-1 items-center bg-[#F4F5F7] px-5 rounded-full"
+          >
+            <img class="w-9 h-9" src="assets/ic_cart.svg" alt="Meu carrinho" />
+            Meu Carrinho
+          </button>
+          <div class="w-full h-px bg-gray-200"></div>
+          <div id="category" class="flex flex-col gap-2 w-full">
+            <h2 class="font-bold">Categorias</h2>
+            <div
+              id="containerCategorias"
+              class="container-categorias flex flex-col gap-2"
+            >
+              <button
+                id="btnChaveiro"
+                data-item="chaveiro"
+                class="flex w-full items-center justify-between px-2 border-b-2 py-1 border-gray-200"
+              >
+                Chaveiro
+                <i class="fa-solid fa-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="">
+            <h2 class="font-bold">Informações</h2>
+            <div class="container-informacoes flex flex-col gap-3">
+              <div
+                class="gap-2 py-1 items-center bg-[#F4F5F7] px-5 rounded-full"
+              >
+                <a
+                  class="flex gap-3 items-center text-lg"
+                  href="https://www.instagram.com/artlaser_crr/"
+                  ><i class="fa-brands fa-instagram"></i> Instagram</a
+                >
+              </div>
+              <div
+                class="gap-2 py-1 items-center bg-[#F4F5F7] px-5 rounded-full"
+              >
+                <a
+                  class="flex gap-3 items-center text-lg"
+                  href="http://wa.me/+557788438467"
+                  ><i class="fa-brands fa-whatsapp"></i> WhatsApp</a
+                >
+              </div>
+              <div
+                class="gap-2 py-1 items-center bg-[#F4F5F7] px-5 rounded-full"
+              >
+                <a
+                  class="flex gap-3 items-center text-lg"
+                  href="https://maps.app.goo.gl/GF1X96q52JfdfHhT6"
+                  ><i class="fa-solid fa-map-pin"></i>Localização</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 

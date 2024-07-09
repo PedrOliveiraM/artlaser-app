@@ -1,9 +1,9 @@
 function showCatalog(products) {
   try {
-    const catalog = document.getElementById("gridContainer");
+    const catalog = document.getElementById('gridContainer');
 
     products.forEach((product) => {
-      const item = document.createElement("div");
+      const item = document.createElement('div');
       item.innerHTML = `
         <div class="container-item w-44 h-[500px] py-2 flex flex-col items-center  gap-1 mt-2 relative">
           <img id="img" class="w-40 h-48 rounded-xl" src="${
@@ -49,7 +49,7 @@ function showCatalog(products) {
       catalog.appendChild(item);
     });
 
-    const items = document.querySelectorAll(".container-item");
+    const items = document.querySelectorAll('.container-item');
     let maxHeight = 0;
 
     items.forEach((item) => {
@@ -63,47 +63,48 @@ function showCatalog(products) {
       item.style.height = `${maxHeight}px`;
     });
   } catch (error) {
-    console.error("Erro ao exibir catálogo:", error);
+    console.error('Erro ao exibir catálogo:', error);
   }
 }
 
-fetch("http://localhost:4000/pictures/")
+fetch('http://localhost:4000/pictures/')
   .then((response) => response.json())
   .then((data) => {
     console.log(data);
     showCatalog(data);
+    listCategorias(data);
   })
   .catch((error) => {
-    console.error("Erro ao buscar dados:", error);
+    console.error('Erro ao buscar dados:', error);
   });
 
 //TODO: Implementar banners
 // Função para buscar os dados do banner
 
 function fetchBannerData() {
-  fetch("http://localhost:4000/banner/")
+  fetch('http://localhost:4000/banner/')
     .then((response) => response.json())
     .then((data) => {
-      console.log("Fetch banner", data);
+      console.log('Fetch banner', data);
       createCarousel(data);
     })
     .catch((error) => {
-      console.error("Erro ao buscar dados:", error);
+      console.error('Erro ao buscar dados:', error);
     });
 }
 function createCarousel(banners) {
-  const bannersContainer = document.getElementById("banners");
+  const bannersContainer = document.getElementById('banners');
 
   banners.forEach((banner) => {
-    const item = document.createElement("div");
-    item.classList.add("carousel-item");
+    const item = document.createElement('div');
+    item.classList.add('carousel-item');
     item.innerHTML = `
       <img class="w-screen h-auto rounded-xl" src="${banner.src}" alt="${banner.imageName}" />
     `;
     bannersContainer.appendChild(item);
   });
 
-  const carouselItems = document.querySelectorAll(".carousel-item");
+  const carouselItems = document.querySelectorAll('.carousel-item');
   const totalItems = carouselItems.length;
   const itemWidth = carouselItems[0].clientWidth;
 
@@ -126,3 +127,57 @@ function createCarousel(banners) {
 }
 
 fetchBannerData();
+
+const btnSideMenu = document.getElementById('btnSideMenu');
+const sideMenu = document.getElementById('sideMenu');
+
+btnSideMenu.addEventListener('click', () => {
+  sideMenu.classList.toggle('hidden');
+  fetch('http://localhost:4000/pictures/');
+});
+
+window.addEventListener('click', function (event) {
+  const modalSideMenu = document.getElementById('sideMenu');
+  if (event.target === modalSideMenu) {
+    modalSideMenu.classList.toggle('hidden');
+  }
+});
+
+//READY: formatar letra
+function capitalizeFirstLetter(string) {
+  if (!string) return ''; // Verifica se a string está vazia ou indefinida
+  return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+}
+
+//TODO: Implementar categorias de produtos
+function listCategorias(products) {
+  const categoriasContainer = document.getElementById('containerCategorias');
+  const categoriasSet = new Set();
+
+  products.forEach((product) => {
+    const category = capitalizeFirstLetter(product.category);
+    if (!categoriasSet.has(category)) {
+      categoriasSet.add(category);
+      const item = document.createElement('div');
+      item.classList.add('categoria');
+      item.innerHTML = `
+        <button
+          id="btnCategoria"
+          data-item="${category}"
+          class="flex w-full items-center justify-between px-2 border-b-2 py-1 border-gray-200"
+        >
+          ${category}
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
+      `;
+
+      categoriasContainer.appendChild(item);
+    }
+  });
+}
+
+//Na hora que clicar no botao de caegoria,
+// esconder a grid principal
+// e mostrar a grid de categorias
+
+const btnCategory = document.getElementById('btnCategory'); //grid categoria
