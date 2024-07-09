@@ -98,7 +98,7 @@ function createCarousel(banners) {
     const item = document.createElement("div");
     item.classList.add("carousel-item");
     item.innerHTML = `
-      <img class="w-screen md:w-full h-32 rounded-xl" src="${banner.src}" alt="${banner.imageName}" />
+      <img class="w-screen h-auto rounded-xl" src="${banner.src}" alt="${banner.imageName}" />
     `;
     bannersContainer.appendChild(item);
   });
