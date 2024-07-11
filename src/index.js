@@ -1,6 +1,7 @@
 function showCatalog(products) {
   try {
     const catalog = document.getElementById('gridContainer');
+    catalog.innerHTML = '';
 
     products.forEach((product) => {
       const item = document.createElement('div');
@@ -21,12 +22,12 @@ function showCatalog(products) {
             <label class="retail text-sm text-center max-w-full break-wordss font-bold">
               Varejo: <span id="retail">R$ ${product.retail.toFixed(2)}</span>
             </label>
-            <label class="wholesale text-sm font-bold text-center max-w-full break-wordss">
+            <label class="wholesale text-sm font-bold text-center max-w-full break-words">
               Atacado: <span id="wholesale">R$ ${product.wholesale.toFixed(
                 2
               )}</span>
             </label>
-            <label class="qtdMin text-sm text-center max-w-full break-wordss">
+            <label class="qtdMin text-sm text-center max-w-full break-words">
               A partir de: <span id="qtdMin">${product.qtdMin}</span> peças
             </label>
           </div>
@@ -62,10 +63,26 @@ function showCatalog(products) {
     items.forEach((item) => {
       item.style.height = `${maxHeight}px`;
     });
+
+    const sideMenu = document.getElementById('sideMenu');
+    sideMenu.classList.add('hidden');
   } catch (error) {
     console.error('Erro ao exibir catálogo:', error);
   }
 }
+
+const btnTodos = document.getElementById('btnTodos');
+btnTodos.addEventListener('click', () => {
+  fetch('http://localhost:4000/pictures/')
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      showCatalog(data);
+    })
+    .catch((error) => {
+      console.error('Erro ao buscar dados:', error);
+    });
+});
 
 fetch('http://localhost:4000/pictures/')
   .then((response) => response.json())
@@ -77,6 +94,18 @@ fetch('http://localhost:4000/pictures/')
   .catch((error) => {
     console.error('Erro ao buscar dados:', error);
   });
+
+function alterProcutsShow(categoria) {
+  fetch(`http://localhost:4000/pictures/category/${categoria}`)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      showCatalog(data);
+    })
+    .catch((error) => {
+      console.error('Erro ao buscar dados:', error);
+    });
+}
 
 //TODO: Implementar banners
 // Função para buscar os dados do banner
@@ -133,7 +162,6 @@ const sideMenu = document.getElementById('sideMenu');
 
 btnSideMenu.addEventListener('click', () => {
   sideMenu.classList.toggle('hidden');
-  fetch('http://localhost:4000/pictures/');
 });
 
 window.addEventListener('click', function (event) {
@@ -149,7 +177,7 @@ function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
 }
 
-//TODO: Implementar categorias de produtos
+// TODO: Implementar categorias de produtos
 function listCategorias(products) {
   const categoriasContainer = document.getElementById('containerCategorias');
   const categoriasSet = new Set();
@@ -174,10 +202,18 @@ function listCategorias(products) {
       categoriasContainer.appendChild(item);
     }
   });
+
+  // Corrigido o seletor e chamado no document
+  const btnCategory = document.querySelectorAll('#btnCategoria');
+
+  btnCategory.forEach((btn) => {
+    btn.addEventListener('click', (event) => {
+      const categoria = event.currentTarget.dataset.item;
+      alterProcutsShow(categoria); // Verifique se a função está definida corretamente
+    });
+  });
 }
 
 //Na hora que clicar no botao de caegoria,
 // esconder a grid principal
 // e mostrar a grid de categorias
-
-const btnCategory = document.getElementById('btnCategory'); //grid categoria

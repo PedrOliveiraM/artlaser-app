@@ -25,7 +25,7 @@ app.use('/users', userRouter);
 app.use(
   '/painel',
   authenticateToken,
-  express.static(path.join(__dirname, '..'))
+  express.static(path.resolve(__dirname, '..', 'painel.html'))
 );
 
 app.listen(port, () => {

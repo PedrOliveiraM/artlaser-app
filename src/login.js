@@ -6,8 +6,8 @@ document
     const password = document.getElementById('password').value;
 
     try {
+      // Requisição para login
       const response = await fetch('http://localhost:4000/users/login', {
-        // Endereço correto da rota
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -18,8 +18,10 @@ document
       const result = await response.json();
 
       if (response.ok) {
-        localStorage.setItem('token', result.token); // Armazena o token
-        window.location.href = '/painel.html'; // Redireciona para painel
+        const token = result.token; // Armazena o token
+
+        // Redireciona para painel.html com o token na URL
+        window.location.href = `painel.html?token=${encodeURIComponent(token)}`;
       } else {
         alert(result.message || 'Login failed'); // Exibe mensagem de erro
       }
@@ -28,4 +30,3 @@ document
       alert('An error occurred');
     }
   });
-

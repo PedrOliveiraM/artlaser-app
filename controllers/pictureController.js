@@ -91,6 +91,29 @@ exports.findByCategory = async (req, res) => {
     res.status(500).send({ message: 'Error getting category pictures' });
   }
 };
+// Buscar pelo nome
+// buscar por título
+// buscar por título
+exports.searchByTitle = async (req, res) => {
+  try {
+    const searchTerm = req.params.title; // Obtém o termo de pesquisa dos parâmetros da rota
+    if (!searchTerm) {
+      return res.status(400).send({ message: 'Search term is required' });
+    }
+
+    // Cria uma expressão regular para buscar o termo no título, ignorando maiúsculas/minúsculas
+    const regex = new RegExp(searchTerm, 'i');
+
+    // Busca no banco de dados por itens cujo título contenha o termo pesquisado
+    const pictures = await Picture.find({
+      title: regex,
+    });
+
+    res.json(pictures);
+  } catch (error) {
+    res.status(500).send({ message: 'Error searching for pictures' });
+  }
+};
 
 //remover
 exports.remove = async (req, res) => {
