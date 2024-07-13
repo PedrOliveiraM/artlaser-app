@@ -248,11 +248,20 @@ document
       });
   });
 
+function closeTelaDeAlteracao() {
+  const telaDeAlteracao = document.getElementById('telaDeAlteracao');
+  telaDeAlteracao.classList.add('hidden');
+}
+
+function openTelaDeAlteracao() {
+  const telaDeAlteracao = document.getElementById('telaDeAlteracao');
+  telaDeAlteracao.classList.remove('hidden');
+}
+
 //READY: MOSTRAR TELA DE ALTERAÇÃO DE PRODUTO
 const altProductBtn = document.getElementById('altProductBtn');
 altProductBtn.addEventListener('click', () => {
-  const telaDeAlteracao = document.getElementById('telaDeAlteracao');
-  telaDeAlteracao.classList.toggle('hidden');
+  openTelaDeAlteracao();
 
   fetch('http://localhost:4000/pictures/')
     .then((response) => response.json())
@@ -263,91 +272,114 @@ altProductBtn.addEventListener('click', () => {
     .catch((error) => {
       console.error('Erro ao buscar dados:', error);
     });
-  function showItems(products) {
-    try {
-      const catalog = document.getElementById('gridContainer');
+});
 
-      products.forEach((product) => {
-        const item = document.createElement('div');
-        item.innerHTML = `
-          <div class="container-item w-44 h-auto py-2 flex flex-col items-center  gap-1 mt-2 relative">
-            <img id="img" class="w-40 h-48 rounded-xl" src="${product.src}" alt="imagem" />
-            <h2 id="nameProduct" class="nameProduct text-center font-semibold">${product.title}</h2>
-            <div class="container-buy mt-1 flex justify-center items-center">
-              <button class="text-white font-bold text-sm bg-yellow-600 w-32 h-8 rounded gap-2 flex justify-center items-center" id="btnAltItem" data-id="${product._id}" >
-                <i class="fa-solid fa-pen-to-square"></i> Alterar
-              </button>
-            </div>
-            </div>  
+//TODO: REMOVER PRODUTO:
+const delProductBtn = document.getElementById('delProductBtn');
+
+delProductBtn.addEventListener('click', () => {
+  openTelaDeAlteracao();
+
+  fetch('http://localhost:4000/pictures/')
+    .then((response) => response.json())
+    .then((product) => {
+      console.log(product);
+      showItems(product);
+    })
+    .catch((error) => {
+      console.error('Erro ao buscar dados:', error);
+    });
+});
+
+function showItems(products) {
+  try {
+    const catalog = document.getElementById('gridContainer');
+    catalog.innerHTML = '';
+
+    products.forEach((product) => {
+      const item = document.createElement('div');
+      item.innerHTML = `
+        <div class="container-item w-44 h-auto py-2 flex flex-col items-center  gap-1 mt-2 relative">
+          <img id="img" class="w-40 h-48 rounded-xl" src="${product.src}" alt="imagem" />
+          <h2 id="nameProduct" class="nameProduct text-center font-semibold">${product.title}</h2>
+          <div class="container-buy mt-1 flex flex-col gap-2 justify-center items-center">
+            <button class="text-white font-bold text-sm bg-yellow-600 w-32 h-8 rounded gap-2 flex justify-center items-center" id="btnAltItem" data-id="${product._id}" >
+              <i class="fa-solid fa-pen-to-square"></i> Alterar
+            </button>
+            <button class="text-white font-bold text-sm bg-red-600 w-32 h-8 rounded gap-2 flex justify-center items-center" id="btnAltItem" data-id="${product._id}" >
+              <i class="fa-solid fa-pen-to-square"></i> Remover
+            </button>
           </div>
-        `;
+          </div>  
+        </div>
+      `;
 
-        catalog.appendChild(item);
-      });
+      catalog.appendChild(item);
+    });
 
-      const items = document.querySelectorAll('.container-item');
-      let maxHeight = 0;
+    const items = document.querySelectorAll('.container-item');
+    let maxHeight = 0;
 
-      items.forEach((item) => {
-        const itemHeight = item.offsetHeight;
-        if (itemHeight > maxHeight) {
-          maxHeight = itemHeight;
-        }
-      });
+    items.forEach((item) => {
+      const itemHeight = item.offsetHeight;
+      if (itemHeight > maxHeight) {
+        maxHeight = itemHeight;
+      }
+    });
 
-      items.forEach((item) => {
-        item.style.height = `${maxHeight}px`;
-      });
+    items.forEach((item) => {
+      item.style.height = `${maxHeight}px`;
+    });
 
-      const buttons = document.querySelectorAll('#btnAltItem');
+    const buttons = document.querySelectorAll('#btnAltItem');
 
-      // Adiciona um evento de clique a cada botão
-      buttons.forEach((button) => {
-        button.addEventListener('click', (event) => {
-          const dataId = event.target.getAttribute('data-id');
+    // Adiciona um evento de clique a cada botão
+    buttons.forEach((button) => {
+      button.addEventListener('click', (event) => {
+        const dataId = event.target.getAttribute('data-id');
 
-          // aparecer o form
-          const formArea = document.getElementById('formAddProduct');
-          const form = document.getElementById('pictureForm');
-          const telaDeAlteracao = document.getElementById('telaDeAlteracao');
-          const titleTela = document.getElementById('titleTela');
-          titleTela.innerHTML = 'Tela de Alteração de Produto';
-          telaDeAlteracao.classList.toggle('hidden');
-          formArea.classList.remove('hidden');
+        // aparecer o form
+        const formArea = document.getElementById('formAddProduct');
+        const form = document.getElementById('pictureForm');
+        const telaDeAlteracao = document.getElementById('telaDeAlteracao');
+        const titleTela = document.getElementById('titleTela');
+        titleTela.innerHTML = 'Tela de Alteração de Produto';
+        telaDeAlteracao.classList.toggle('hidden');
+        formArea.classList.remove('hidden');
 
-          fetch(`http://localhost:4000/pictures/${dataId}`)
-            .then((response) => response.json())
-            .then((product) => {
-              console.log(product);
-              preencherForm(product);
-            })
-            .catch((error) => {
-              console.error('Erro ao buscar dados:', error);
-            });
-
-          const btnCancel = document.getElementById('btnCancel');
-          btnCancel.addEventListener('click', () => {
-            formArea.classList.toggle('hidden');
-            telaDeAlteracao.classList.toggle('hidden');
+        fetch(`http://localhost:4000/pictures/${dataId}`)
+          .then((response) => response.json())
+          .then((product) => {
+            console.log(product);
+            preencherForm(product);
+          })
+          .catch((error) => {
+            console.error('Erro ao buscar dados:', error);
           });
 
-          function preencherForm(product) {
-            console.log('preenchendo form', product);
-            form.querySelector('#productId').value = product._id;
-            form.querySelector('#title').value = product.title;
-            form.querySelector('#description').value = product.description;
-            form.querySelector('#qtdMin').value = product.qtdMin;
-            form.querySelector('#category').value = product.category;
-            form.querySelector('#retail').value = product.retail;
-            form.querySelector('#wholesale').value = product.wholesale;
-          }
+        const btnCancel = document.getElementById('btnCancel');
+        btnCancel.addEventListener('click', () => {
+          formArea.classList.toggle('hidden');
+          telaDeAlteracao.classList.toggle('hidden');
         });
+
+        function preencherForm(product) {
+          console.log('preenchendo form', product);
+          form.querySelector('#productId').value = product._id;
+          form.querySelector('#title').value = product.title;
+          form.querySelector('#description').value = product.description;
+          form.querySelector('#qtdMin').value = product.qtdMin;
+          form.querySelector('#category').value = product.category;
+          form.querySelector('#retail').value = product.retail;
+          form.querySelector('#wholesale').value = product.wholesale;
+        }
       });
-    } catch (error) {
-      console.error('Erro ao exibir catálogo:', error);
-    }
+    });
+  } catch (error) {
+    console.error('Erro ao exibir catálogo:', error);
   }
-});
+}
+
 // READY: DELETAR PRODUTO
 function deleteProduct(productId) {
   const url = `http://localhost:4000/pictures/${productId}`; // URL para a requisição DELETE
@@ -442,13 +474,6 @@ function showBanners(banners) {
     });
   });
 }
-
-//TODO: REMOVER PRODUTO:
-const delProductBtn = document.getElementById('delProductBtn');
-
-delProductBtn.addEventListener('click', () => {
-  mostrarProdutos();
-});
 
 function mostrarProdutos() {
   const telaDeAlteracao = document.getElementById('telaDeAlteracao');
