@@ -84,6 +84,7 @@
         class="container-search flex justify-center items-center rounded-lg border-2 border-[#C8C8CC] px-3"
       >
         <input
+          id="inputSearchProduct"
           class="barraDePesquisa w-full h-10 rounded-l-lg border-0 outline-none px-2"
           type="text"
           placeholder="Procure pelo produto..."
@@ -109,14 +110,9 @@
         id="gridContainer"
         class="grid md:grid-cols-4 grid-cols-2 md:gap-1 gap-7 mx-auto max-w-7xl px-2 mb-16"
       ></div>
-
-      <div
-        id="gridContainerCategory"
-        class="hidden md:grid-cols-4 grid-cols-2 md:gap-1 gap-7 mx-auto max-w-7xl px-2 mb-16"
-      ></div>
     </main>
 
-    <!-- TODO: MENU LATERAL -->
+    <!-- READY: MENU LATERAL -->
     <div
       id="sideMenu"
       class="hidden fixed bg-black/60 h-screen w-screen inset-0"
@@ -197,68 +193,13 @@
     <div id="myCart" class="hidden carrinho px-4 py-6 space-y-2">
       <div class="header flex justify-between py-4">
         <h2 class="font-bold">Meu Carrinho</h2>
-        <button id="btnCloseCart" class="flex gap-2 items-center">
+        <button id="btnKeepBuy" class="flex gap-2 items-center">
           <i class="fa-solid fa-arrow-left"></i>
           continuar comprando
         </button>
       </div>
 
-      <div id="containerDePedidos" class="pedidos flex flex-col gap-2">
-        <div
-          class="Pedido-1 border-2 border-[#747474] rounded-lg h-36 flex md:p-2 md:h-auto items-center px-1"
-        >
-          <img
-            class="w-30 h-32 md:w-48 md:h-64 shrink-0 rounded-xl"
-            src="uploads/1720145735252.png"
-            alt="imagem do produto"
-          />
-
-          <div
-            class="Infor space-y-5 flex flex-col justify-center items-center w-full"
-          >
-            <h2 class="font-bold text-center">Nome do Produto</h2>
-            <div class="flex justify-between w-full">
-              <div class="md:text-lg flex flex-col w-full px-2">
-                <div class="flex justify-between">
-                  <p class="font-semibold">Valor:</p>
-                  <p id="valorDoPedido">R$ 11,00</p>
-                </div>
-
-                <div class="flex justify-between">
-                  <p class="font-semibold">Qtd:</p>
-                  <div
-                    class="quantidade bg-gray-300 rounded w-24 h-7 flex justify-center items-center"
-                  >
-                    <button
-                      id="btnDelProduct"
-                      class="btn-minus scroll-py-10 text-black font-semibold rounded-lg"
-                    >
-                      -
-                    </button>
-                    <input
-                      class="ml-2 text-center w-12 h-10 bg-transparent outline-none font-bold"
-                      type="number"
-                      name="quantidade"
-                      value="1"
-                    />
-                    <button
-                      id="btnAddProduct"
-                      class="btn-plus py-1 text-black font-semibold rounded-lg"
-                    >
-                      +
-                    </button>
-                  </div>
-                </div>
-
-                <div class="flex justify-between">
-                  <p class="font-semibold">Valor Total:</p>
-                  <p id="valorDoPedido">R$ 55,00</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div id="containerDePedidos" class="pedidos flex flex-col gap-2"></div>
 
       <div class="Detalhes do pedido">
         <h2 class="font-semibold">Seu Pedido</h2>
@@ -266,11 +207,11 @@
           <div class="">
             <div class="flex justify-between">
               <p class="font-medium">Qtd. Itens:</p>
-              <p id="qtdeFinalItens">5</p>
+              <p id="qtdeFinalItens">0</p>
             </div>
             <div class="flex justify-between">
               <p class="font-medium">Total</p>
-              <p id="valorFinalItens">R$ 65,00</p>
+              <p id="valorFinalItens">R$ 00,00</p>
             </div>
           </div>
         </div>
