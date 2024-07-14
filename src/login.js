@@ -8,7 +8,7 @@ document
 
     try {
       // Requisição para login
-      const response = await fetch('http://localhost:4000/users/login', {
+      const response = await fetch('https://back-artlaser-c5e8836155b5.herokuapp.com/users/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

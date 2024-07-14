@@ -21,7 +21,7 @@ btnSearchProduct.addEventListener('click', () => {
 
 function fetchProductBySearh() {
   const search = inputSearchProduct.value;
-  fetch(`http://localhost:4000/pictures/search/${search}`)
+  fetch(`https://back-artlaser-c5e8836155b5.herokuapp.com/pictures/search/${search}`)
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
@@ -127,7 +127,7 @@ function showCatalog(products) {
 
 // READY: BUSCAR TODOS OS PRODUTOS
 function fetchAllProducts() {
-  fetch('http://localhost:4000/pictures/')
+  fetch('https://back-artlaser-c5e8836155b5.herokuapp.com/pictures/')
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
@@ -139,7 +139,7 @@ function fetchAllProducts() {
 }
 // READY: BUSCAR PRODUTOS POR CATEGORIA
 function fetchProductsByCategory(category) {
-  fetch(`http://localhost:4000/pictures/category/${category}`)
+  fetch(`https://back-artlaser-c5e8836155b5.herokuapp.com/pictures/category/${category}`)
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
@@ -151,7 +151,7 @@ function fetchProductsByCategory(category) {
 }
 // READY: BUSCAR CATEGORIAS DE PRODUTOS : MENU LATERAL
 function fetchCategories() {
-  fetch('http://localhost:4000/pictures/')
+  fetch('https://back-artlaser-c5e8836155b5.herokuapp.com/pictures/')
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
@@ -211,7 +211,7 @@ btnTodos.addEventListener('click', () => {
 
 // READY: BUSCAR BANNERS
 function fetchBannerData() {
-  fetch('http://localhost:4000/banner/')
+  fetch('https://back-artlaser-c5e8836155b5.herokuapp.com/banner/')
     .then((response) => response.json())
     .then((data) => {
       console.log('Fetch banner', data);
@@ -373,7 +373,7 @@ const meusPedidos = [
 ];
 // READY: FUNÇÃO PARA VERIFICAR O VALOR DO PRODUTO
 async function verificarValorAtacado(id, quantidade) {
-  const response = await fetch(`http://localhost:4000/pictures/${id}`);
+  const response = await fetch(`https://back-artlaser-c5e8836155b5.herokuapp.com/pictures/${id}`);
   const pedido = await response.json();
 
   console.log('VERIFICAR VALOR ATACADO: pedido', pedido);
@@ -422,7 +422,7 @@ async function gerarPedido(id, quantidade) {
   console.log(id);
   console.log(quantidade);
 
-  const response = await fetch(`http://localhost:4000/pictures/${id}`);
+  const response = await fetch(`https://back-artlaser-c5e8836155b5.herokuapp.com/pictures/${id}`);
   const pedido = await response.json();
 
   console.log(pedido);

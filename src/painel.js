@@ -151,7 +151,8 @@ document.addEventListener('DOMContentLoaded', () => {
       formData.set('image', croppedFile); // Substituir o arquivo original pelo arquivo cortado
 
       // Enviar formData para o servidor via fetch ou XMLHttpRequest
-      const endpoint = 'http://localhost:4000/pictures/';
+      const endpoint =
+        'https://back-artlaser-c5e8836155b5.herokuapp.com/pictures/';
       fetch(endpoint, {
         method: 'POST',
         body: formData,
@@ -202,6 +203,8 @@ const addProductBtn = document.getElementById('addProductBtn');
 const formAddProduct = document.getElementById('formAddProduct');
 addProductBtn.addEventListener('click', () => {
   formAddProduct.classList.toggle('hidden');
+  const telaDeAlteracao = document.getElementById('telaDeAlteracao');
+  telaDeAlteracao.classList.add('hidden');
 });
 
 //TODO: MOSTRAR TELA DE ADIÇÃO DE BANNER
@@ -222,7 +225,7 @@ document
     const formData = new FormData(this);
 
     // Endpoint para enviar os dados
-    const endpoint = 'http://localhost:4000/banner/';
+    const endpoint = 'https://back-artlaser-c5e8836155b5.herokuapp.com/banner/';
 
     // Enviar requisição fetch
     fetch(endpoint, {
@@ -261,9 +264,11 @@ function openTelaDeAlteracao() {
 //READY: MOSTRAR TELA DE ALTERAÇÃO DE PRODUTO
 const altProductBtn = document.getElementById('altProductBtn');
 altProductBtn.addEventListener('click', () => {
+  const formAddProduct = document.getElementById('formAddProduct');
+  formAddProduct.classList.add('hidden');
   openTelaDeAlteracao();
 
-  fetch('http://localhost:4000/pictures/')
+  fetch('https://back-artlaser-c5e8836155b5.herokuapp.com/pictures/')
     .then((response) => response.json())
     .then((product) => {
       console.log(product);
@@ -279,8 +284,10 @@ const delProductBtn = document.getElementById('delProductBtn');
 
 delProductBtn.addEventListener('click', () => {
   openTelaDeAlteracao();
+  const formAddProduct = document.getElementById('formAddProduct');
+  formAddProduct.classList.add('hidden');
 
-  fetch('http://localhost:4000/pictures/')
+  fetch('https://back-artlaser-c5e8836155b5.herokuapp.com/pictures/')
     .then((response) => response.json())
     .then((product) => {
       console.log(product);
@@ -347,7 +354,9 @@ function showItems(products) {
         telaDeAlteracao.classList.toggle('hidden');
         formArea.classList.remove('hidden');
 
-        fetch(`http://localhost:4000/pictures/${dataId}`)
+        fetch(
+          `https://back-artlaser-c5e8836155b5.herokuapp.com/pictures/${dataId}`
+        )
           .then((response) => response.json())
           .then((product) => {
             console.log(product);
@@ -382,7 +391,7 @@ function showItems(products) {
 
 // READY: DELETAR PRODUTO
 function deleteProduct(productId) {
-  const url = `http://localhost:4000/pictures/${productId}`; // URL para a requisição DELETE
+  const url = `https://back-artlaser-c5e8836155b5.herokuapp.com/pictures/${productId}`; // URL para a requisição DELETE
 
   fetch(url, {
     method: 'DELETE', // Método da requisição
@@ -412,7 +421,7 @@ btnRemoveBanner.addEventListener('click', () => {
 
 //TODO: MOSTRAR BANNERS
 function mostrarBanners() {
-  fetch('http://localhost:4000/banner/')
+  fetch('https://back-artlaser-c5e8836155b5.herokuapp.com/banner/')
     .then((response) => response.json())
     .then((banners) => {
       console.log(banners);
@@ -450,12 +459,15 @@ function showBanners(banners) {
     button.addEventListener('click', (event) => {
       const dataId = event.target.getAttribute('data-id');
 
-      fetch(`http://localhost:4000/banner/${dataId}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
+      fetch(
+        `https://back-artlaser-c5e8836155b5.herokuapp.com/banner/${dataId}`,
+        {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      )
         .then((response) => {
           if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
@@ -479,7 +491,7 @@ function mostrarProdutos() {
   const telaDeAlteracao = document.getElementById('telaDeAlteracao');
   telaDeAlteracao.classList.toggle('hidden');
 
-  fetch('http://localhost:4000/pictures/')
+  fetch('https://back-artlaser-c5e8836155b5.herokuapp.com/pictures/')
     .then((response) => response.json())
     .then((product) => {
       console.log(product);
@@ -530,12 +542,15 @@ function mostrarProdutos() {
         button.addEventListener('click', (event) => {
           const dataId = event.target.getAttribute('data-id');
 
-          fetch(`http://localhost:4000/pictures/${dataId}`, {
-            method: 'DELETE',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          })
+          fetch(
+            `https://back-artlaser-c5e8836155b5.herokuapp.com/pictures/${dataId}`,
+            {
+              method: 'DELETE',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            }
+          )
             .then((response) => {
               if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
